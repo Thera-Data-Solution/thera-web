@@ -1,21 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
 
-const COLLABS = [
-  "Yoga Festival 2023",
-  "Mandala Retreat",
-  "Wellness Center JKT",
-  "Corporate Balance",
-  "Hotel Mulia Spa",
-  "Bali Spirit",
-  "Mindful Corp",
-  "Zen Space",
-];
-
-// Duplicate list for infinite scroll effect
-const SCROLL_ITEMS = [...COLLABS, ...COLLABS, ...COLLABS];
-
-export const Collaborations = () => {
+export const Collaborations = ({ partners }) => {
   return (
     <div className="w-full overflow-hidden bg-earth-100 py-12">
       <div className="container mx-auto px-6 mb-6 text-center">
@@ -31,17 +16,19 @@ export const Collaborations = () => {
           transition={{
             repeat: Infinity,
             ease: "linear",
-            duration: 25,
+            duration: 10,
           }}
         >
-          {SCROLL_ITEMS.map((item, index) => (
+          {partners.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="inline-flex items-center justify-center mx-8 md:mx-16 opacity-60 hover:opacity-100 transition-opacity"
             >
-              <span className="text-xl md:text-2xl font-serif font-bold text-earth-800 whitespace-nowrap">
-                {item}
-              </span>
+              <img
+                src={item.logo}
+                alt={item.name}
+                className="w-16 h-16 md:w-24 md:h-24 object-contain"
+              />
             </div>
           ))}
         </motion.div>
