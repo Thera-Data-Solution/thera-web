@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getCategories } from '../service/category'
 import { getPartners } from '../service/collab'
 import { getArticles } from '../service/article'
+import { getHero } from '../service/hero'
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -25,12 +26,18 @@ function Index() {
   })
   const { data: articles } = useQuery({
     queryKey: ['articles'],
-    queryFn: () => getArticles({ pageSize: 3 })
+    queryFn: () => getArticles({ pageSize: 3, type: "BLOG" })
+  })
+  const {data: hero, isPending: heroLoading} = useQuery({
+    queryKey: ['hero'],
+    queryFn: () => getHero()
   })
   return <HomeScreen
     gallery={gallery?.data || []}
     categories={categories || []}
     partners={partners?.data || []}
     articles={articles?.data || []}
+    hero={hero || null}
+    heroLoading={heroLoading}
   />
 }
